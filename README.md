@@ -1,15 +1,8 @@
 # Node-turn
 
-[![npm version](https://badge.fury.io/js/node-turn.svg)](https://www.npmjs.com/node-turn)
-[![Build Status](https://travis-ci.org/Atlantis-Software/node-turn.svg?branch=master)](https://travis-ci.org/Atlantis-Software/node-turn)
-[![Coverage Status](https://coveralls.io/repos/github/Atlantis-Software/node-turn/badge.svg?branch=master)](https://coveralls.io/github/Atlantis-Software/node-turn?branch=master)
-[![NSP Status](https://nodesecurity.io/orgs/atlantis/projects/fac5e217-aa66-4a6b-9090-a82a52d20f83/badge)](https://nodesecurity.io/orgs/atlantis/projects/fac5e217-aa66-4a6b-9090-a82a52d20f83)
-[![Dependencies Status](https://david-dm.org/Atlantis-Software/node-turn.svg)](https://david-dm.org/Atlantis-Software/node-turn)
-
 Node-turn is a STUN/TURN server for Node.JS
 
 Supported RFCs:
-
 https://tools.ietf.org/html/rfc5389
 https://tools.ietf.org/html/rfc5766
 
@@ -29,9 +22,9 @@ $ cd ./node_modules/node-turn
 $ su
 # mkdir /etc/node-turn
 # cp ./sample-config.conf /etc/node-turn/node-turn.conf
-# chmod 777 /etc/node-turn/node-turn.conf
+# chmod 640 /etc/node-turn/node-turn.conf
 # touch /var/log/node-turn.log
-# chmod 777 /var/log/node-turn.log
+# chmod 640 /var/log/node-turn.log
 # exit
 $ vi /etc/node-turn/node-turn.conf
 $ npm run start
@@ -58,6 +51,7 @@ Option                    | Type            | Description
 listeningPort             | Integer         | TURN listener port for UDP (Default: 3478).
 listeningIps              | Array           | Listener IP address of relay server. Multiple listeners can be specified.If no IP(s) specified in the config, then all system IPs will be used for listening.
 relayIps                  | Array           | Relay address (the local IP address that will be used to relay the packets to the peer). Multiple relay addresses may be used.The same IP(s) can be used as both listening IP(s) and relay IP(s). If no relay IP(s) specified, then the turnserver will apply the default policy: it will decide itself which relay addresses to be used, and it will always be using the client socket IP address as the relay IP address of the TURN session (if the requested relay address family is the same as the family of the client socket).
+externalIps               | Object          | External IP addres for relay address allocations. This is necessary if running the relay server behind a NAT. By default, the local relay IP is used, if externalIps is a string, then all allocations will use that address for the relayed address, if it's an object, then it takes the form of {"local ip 1": "external ip 1", "local ip 2": "external ip 2", default: "default external IP"} to specify an external IP per local relay IP. A special 'default' key can be set for use with any relay addresses that aren't listed in the object.
 minPort                   | Integer         | Lower bound of the UDP relay endpoints (Default: 49152).
 maxPort                   | Integer         | Upper bound of the UDP relay endpoints (Default: 65535).
 authMech                  | String          | TURN credential mechanism. cf authentification mechanism table lower. By default no credentials mechanism is used (any user allowed).
