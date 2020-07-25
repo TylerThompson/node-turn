@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "crc": "^3.8.0",
-    "js-yaml": "~3.12.0",
+    "js-yaml": "~3.14.0",
     "log4js": "~3.0.5"
   },
   "devDependencies": {
